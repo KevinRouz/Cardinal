@@ -1,0 +1,54 @@
+*Normal and test game modes in Main game-running Class
+ - Normal sub-modes
+   - Single-shot
+   - Consecutive-shot
+ - Test mode
+   - Shows true states of all cells ("S" cells show "S")
+   - Has all sub-modes of normal mode
+
+*10x10 grid of Point objects for each player
+ - Each Point has a state
+   ~ = Empty
+   X = Hit
+   S = Ship (can only see privately per player)
+   O = Miss
+   *Empty & ship cells show the same "~" on master gameboard since true cell states are hidden
+ - Each Point knows length of ship it belongs to
+ - Each Point has an x and y coordinate
+
+*Each player has ArrayList of Ships
+ - Each Ship has an array of Points, a size, status, and orientation
+   - Ship size = length of Point array
+   - Ship sunk when all Points return "X" as their state
+ - If all ships sunk, player out of game
+ - Ship lengths 6, 5, 4, 3, 2
+*Each player has a number and name
+
+*Master gameboard split into "n" sections for "n" players
+  - Already know which ship cell belongs to which player b/c of these sections
+    - Need to know which ship hit when shot (length of ship)
+  - GameBoard object has ArrayList of Players and a 2D Array of Point Objects
+  - When printed, rows & columns labeled 0-19
+  - Building
+    - Pick an orientation & point, ship build rightwards or downwards from that point
+    - If any of the potential ship building points return "S", go outside the board, or extend into another player's territory, re-input
+    - Successful placement fills master gameboard along the desired line with new "S" Points using FOR loop, adding each new Point to one new Ship Object, then adding that Ship Object to the player's Ship ArrayList
+  - Shooting
+    - Each player inputs a row-column coordinate to shoot
+      - If shot outside board boundaries or in own territory, re-input
+      - Check state of cell, if "S", run through Point array of Player shot at and compare ship length of that point to find which ship 
+        was shot, then update Ship cell
+
+Sample gameboard:
+   1  2  3  4  5 | 6  7  8  9  10 
+A  ~  ~  ~  ~  ~ | ~  ~  ~  ~  ~ 
+B  ~  ~  ~  ~  ~ | ~  ~  ~  ~  ~ 
+C  ~  ~  ~  ~  ~ | ~  ~  ~  ~  ~
+D  ~  ~  ~  ~  ~ | ~  ~  ~  ~  ~
+E  ~  ~  ~  ~  ~ | ~  ~  ~  ~  ~
+   _______________________________
+F  ~  ~  ~  ~  ~ | ~  ~  ~  ~  ~
+G  ~  ~  ~  ~  ~ | ~  ~  ~  ~  ~
+H  ~  ~  ~  ~  ~ | ~  ~  ~  ~  ~
+I  ~  ~  ~  ~  ~ | ~  ~  ~  ~  ~
+J  ~  ~  ~  ~  ~ | ~  ~  ~  ~  ~

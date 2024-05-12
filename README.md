@@ -1,0 +1,1 @@
+Cardinal is a text-based, (up-to) 4-player take on the classic game, Battleship, programmed in Java. Involving equal parts luck and strategy, all four players will position their ships on a 2D array, then take turns attacking each other’s. The last player remaining after all other player’s ships have been completely destroyed wins.
